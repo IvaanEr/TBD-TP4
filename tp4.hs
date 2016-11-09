@@ -1,3 +1,5 @@
+module TP4 where 
+
 import Data.Set
 import Control.Monad
  
@@ -9,15 +11,14 @@ listPowerset = filterM (const [True, False])
 
 reflex :: Set String -> Set (Set String, Set String)
 reflex set | set == empty = empty
-           | otherwise = let part = Prelude.map concat $ Prelude.map (toList) (toList  (delete empty $ powerset set))
-                             set' = concat $ toList set
-                         in fromList $ Prelude.map (\x -> (set',x)) part 
-                         
+           | otherwise = let part = delete empty $ powerset set 
+                         in Data.Set.map (\x -> (set,x)) part 
+
 -- regla de reflexividad
-closeRef :: Set String -> Set (String,String) -> Set (String,String)
+closeRef :: Set String -> Set (Set String,Set String) -> Set (Set String,Set String)
 closeRef r f = let pr = powerset r
-                   aux = Data.Set.map reflex pr
-               in concatSet aux
+                   aux = unions $ toList $ Data.Set.map reflex pr
+               in union f aux
             
 
 concatSet :: Set (Set (String,String)) -> Set (String,String)
@@ -27,8 +28,8 @@ concatSet set | set == empty = empty
                where f []     = empty
                      f (x:xs) = union x (f xs)
 
--- regla de aumento{-
-{-
-close :: Set String -> Set (String,String) -> Set (String,String)
-close r f = let aux
--}
+-- regla de aumento	
+
+closeAum :: Set String -> Set (Set String,Set String) -> Set (Set String,Set String)
+closeAum r f = let pr = delete empty $ powerset r
+               in  Data.Set.map (\rr -> Data.Set.map (\(x,y)-> (union x rr, union y rr)) f ) pr
