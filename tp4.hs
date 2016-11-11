@@ -2,6 +2,9 @@ module TP4 where
 
 import Data.Set
 import Control.Monad
+
+-- showwwwww
+-- toList  $ Data.Set.map (\(x,y) -> (concat $ toList  x,concat $ toList  y)) ans
  
 powerset :: Ord a => Set a -> Set (Set a)
 powerset = fromList . fmap fromList . listPowerset . toList
@@ -29,7 +32,11 @@ concatSet set | set == empty = empty
                      f (x:xs) = union x (f xs)
 
 -- regla de aumento	
+--alfa -> beta => alfa gama => beta gama tq gama \in 
+
 
 closeAum :: Set String -> Set (Set String,Set String) -> Set (Set String,Set String)
 closeAum r f = let pr = delete empty $ powerset r
+				        
                in  Data.Set.map (\rr -> Data.Set.map (\(x,y)-> (union x rr, union y rr)) f ) pr
+
