@@ -41,6 +41,27 @@ prueba2 = do putStrLn "Set3 -> R: { A, B, C, D, E, F, G, H, I, J } F: {{A}→{I}
              putStrLn "A: { B, D }"
              putStr "A+: " 
              printSet $ closeAlfa alfa3 f3
+             putStrLn "Set4 -> R: {A,B,C,D,E,F,G,H} F: {{A→BC},{C→D},{D→G},{E→A},{E→H},{H→E}}"
+             putStrLn "A: {A,C}"
+             putStr "A+: "
+             printSet $ closeAlfa alfa4 f4
+             putStrLn "Set5 -> R: {A,B,C,D,E,F,G} F: {{A→F},{A→G},{B→E},{C→D},{D→B},{E→A}, {FG→C}}"
+             putStrLn "A: {F,G}"
+             putStr "A+: "
+             printSet $ closeAlfa alfa5 f5
+
+prueba3 :: IO()
+prueba3 = do putStrLn "Set3 -> R: { A, B, C, D, E, F, G, H, I, J } F: {{A}→{I}, {A,B}→{C}, {A,D}→{G,H}, {B,D}→{E,F}, {H}→{J}}"
+             putStrLn "Claves candidatas: " 
+             printSet' $ toList $ claves r3 f3
+             putStrLn "Set4 -> R: {A,B,C,D,E,F,G,H} F: {{A→BC},{C→D},{D→G},{E→A},{E→H},{H→E}}"
+             putStrLn "Claves candidatas: "
+             printSet' $ toList $ claves r4 f4
+             putStrLn "Set5 -> R: {A,B,C,D,E,F,G} F: {{A→F},{A→G},{B→E},{C→D},{D→B},{E→A}, {FG→C}}"
+             putStrLn "Claves candidatas: "
+             printSet' $ toList $ claves r5 f5
 
 main :: IO()
-main = prueba2
+main = do prueba1
+          prueba2 
+          prueba3

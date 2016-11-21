@@ -1,0 +1,103 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,latexsym}
+\usepackage{syntax}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{amssymb}
+\usepackage{tipa}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{stmaryrd}
+\usepackage{setspace}
+
+\setlength{\grammarindent}{2cm}
+
+\lstset{
+  basicstyle=\itshape,
+  xleftmargin=3em,
+  literate={:=}{$\rightarrow$}{2}
+           {α}{$\alpha$}{1}
+           {δ}{$\delta$}{1}
+}
+
+\linespread{1.3}
+
+\author{
+        Dzikiewicz, Luis\\
+        Legajo: D-3850/4\\
+        \texttt{luisdzi.87@gmail.com}
+        \and Ernandorena, Iván\\
+        Legajo: E-1115/1\\
+        \texttt{ivan.ernandorena@gmail.com}
+}
+
+\date{}
+
+\title {
+    \Huge  \textsc{Trabajo Práctico 4\\}
+    \large \textsc{Teoría de Base de Datos}
+}
+
+\begin{document}
+
+
+    \pagenumbering{gobble}
+    \maketitle
+
+    \thispagestyle{empty}
+
+    \begin{center}
+         \large \bf Docentes
+    \end{center}
+
+    \begin{center}
+
+        Claudia Deco  
+
+        Cristina Bender
+
+        Lucía Reixach 
+        \vspace{2cm}
+
+        \includegraphics[scale=1.5]{Logo-Unr}
+
+
+    \end{center}
+
+
+
+
+%------------------------------------------------------------------------------
+
+
+    \newpage
+
+
+    \section*{Ejercicio 3:}
+    \begin{verbatim}
+    res := empty;
+    pr  := P(R);
+    while(pr no sea vacio)
+      for each alfa in pr
+        pr := pr - alfa;
+        if alfa+ == R then agregar alfa a resultado;
+        for each beta in pr
+          if alfa esta en beta then pr := pr - beta;  
+    \end{verbatim}
+
+    \begin{verbatim}
+    res = empty;
+    pr  = partes(R);
+    while(pr != empty){
+      for(alfa in pr){
+        pr := pr - alfa;
+        if alfa+ == R then union alfa resultado;
+        for(beta in pr){
+          if alfa isSubsetOf beta then pr := pr - beta;
+        }
+      }
+    } 
+    \end{verbatim}
+
+
+\end{document}

@@ -76,19 +76,20 @@ printSet s = do putStr "{ "
                 putStr " }"
                 putStrLn ""
 
--- Ejercicio 3
-
+printSet' :: [Set String] -> IO()
+printSet' []     = putStr ""
+printSet' (x:xs) = do printSet x
+                      printSet' xs
+ 
 -- Ejercicio 4
-
--- candidateKey :: Set String -> Set (Set String -> Set String) -> Set (Set String)
-candidateKey r f = let pr = delete empty $ powerset r
-                   in Data.Set.map (\x -> if closeAlfa x f == r then x else empty) pr 
-
-
 claves :: Set String -> Set (Set String, Set String) -> Set (Set String)
-claves r f = claves' r empty f
+claves r f = let pr = delete empty $ powerset r
+                 alfas = Data.Set.filter (\x -> closeAlfa x f == r) pr
+             in g alfas alfas 
 
--- claves' :: Set String -> Set (Set String) ->  Set (Set String, Set String) -> Set (Set String)
-claves' r res f = let pr = delete empty $ powerset r
-                      alfas = Data.Set.filter (\x -> closeAlfa x f == r) pr --quedan los "alfas" que son claves
-                  in  Data.Set.filter (\alfa-> Data.Set.map (\x-> ) res) alfas
+g :: Set (Set String) -> Set (Set String) -> Set (Set String)
+g set control | set == empty = control
+              | otherwise = let min = findMin set
+                                c' = Data.Set.filter (\c -> not (isProperSubsetOf min c)) control
+                            in g (Data.Set.delete min set) c'
+
